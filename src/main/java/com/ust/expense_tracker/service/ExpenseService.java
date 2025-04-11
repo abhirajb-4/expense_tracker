@@ -3,6 +3,7 @@ package com.ust.expense_tracker.service;
 import com.ust.expense_tracker.model.Expense;
 import com.ust.expense_tracker.model.User;
 import com.ust.expense_tracker.repository.ExpenseRepo;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class ExpenseService {
 
     private final ExpenseRepo expenseRepository;
@@ -33,12 +35,20 @@ public class ExpenseService {
         existExpense.setCategory(expense.getCategory());
         existExpense.setDate(expense.getDate());
         expenseRepository.save(existExpense);
+        System.out.println(expense);
+        return;
     }
 
     public void deleteExpense(Long id) {
-        Expense expense = expenseRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("EXpense not found"));
+        if (!expenseRepository.existsById(id)) {
+            throw new RuntimeException("Expense not found");
+        }
+        else{
+            expenseRepository.deleteById(id);
+            System.out.println(id+"  ajlkjlkflkjflkdjklfjdkljkldj");
+        }
 
-        expenseRepository.delete(expense);
+        return;
     }
+
 }

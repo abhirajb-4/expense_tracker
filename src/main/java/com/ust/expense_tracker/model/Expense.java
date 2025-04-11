@@ -33,6 +33,7 @@ public class Expense implements Serializable {
     private String category;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
     private ExpenseType expenseType; //DEBIT CREDIT
 
     @NotNull

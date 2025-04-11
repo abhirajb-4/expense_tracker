@@ -1,32 +1,26 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Handle edit modal data population
-    const editModal = document.getElementById('editExpenseModal');
-    if (editModal) {
-        editModal.addEventListener('show.bs.modal', function(event) {
-            const button = event.relatedTarget;
-            const id = button.getAttribute('data-id');
-            const name = button.getAttribute('data-name');
-            const amount = button.getAttribute('data-amount');
-            const category = button.getAttribute('data-category');
-            const type = button.getAttribute('data-type');
-            const date = button.getAttribute('data-date');
+// Handle edit modal data population
+    document.getElementById('editExpenseModal').addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+        const modal = this;
 
-            document.getElementById('editId').value = id;
-            document.getElementById('editExpenseName').value = name;
-            document.getElementById('editAmount').value = amount;
-            document.getElementById('editCategory').value = category;
-            document.getElementById('editExpenseType').value = type;
-            document.getElementById('editDate').value = date;
+        modal.querySelector('#editId').value = button.getAttribute('data-id');
+        modal.querySelector('#editExpenseName').value = button.getAttribute('data-name');
+        modal.querySelector('#editCategory').value = button.getAttribute('data-category');
+        modal.querySelector('#editAmount').value = button.getAttribute('data-amount');
+        modal.querySelector('#editExpenseType').value = button.getAttribute('data-type');
+        modal.querySelector('#editDate').value = button.getAttribute('data-date');
+    });
+
+    // Add animation to modals when they appear
+    document.querySelectorAll('.modal').forEach(modal => {
+        modal.addEventListener('shown.bs.modal', function () {
+            const modalContent = this.querySelector('.modal-content');
+            modalContent.style.transform = 'translateY(0)';
+            modalContent.style.opacity = '1';
         });
-    }
-
-    // Add confirmation for delete actions
-    const deleteForms = document.querySelectorAll('form[action^="/dashboard/delete/"]');
-    deleteForms.forEach(form => {
-        form.addEventListener('submit', function(e) {
-            if (!confirm('Are you sure you want to delete this expense?')) {
-                e.preventDefault();
-            }
+        modal.addEventListener('hide.bs.modal', function () {
+            const modalContent = this.querySelector('.modal-content');
+            modalContent.style.transform = 'translateY(-20px)';
+            modalContent.style.opacity = '0';
         });
     });
-});

@@ -43,6 +43,7 @@ public class DashboardController {
     @PostMapping("/delete/{id}")
     public String deleteExpense(@PathVariable Long id){
         expenseService.deleteExpense(id);
+        System.out.println("DELETE METHOD INVOKEDD..........."+id);
         return "redirect:/dashboard";
     }
 }
