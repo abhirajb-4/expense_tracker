@@ -43,7 +43,7 @@ public class User implements UserDetails, Serializable {
     @Enumerated(EnumType.STRING)
     private Role role = Role.USER;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", cascade = {}, orphanRemoval = true,fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<Expense> expenses;
 

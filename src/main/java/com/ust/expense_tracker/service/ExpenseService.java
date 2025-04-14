@@ -47,7 +47,6 @@ public class ExpenseService {
             expenseRepository.deleteById(id);
             System.out.println(id+"  ajlkjlkflkjflkdjklfjdkljkldj");
         }
-
         return;
     }
 
